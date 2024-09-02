@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from flask import request
 from selenium import webdriver
 import pandas as pd
-from moveS3 import moveToS3
+from libs.moveS3 import moveToS3
 import os
 import time
 import re
