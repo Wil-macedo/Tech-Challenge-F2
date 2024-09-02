@@ -3,3 +3,4 @@ pandas
 pyarrow
 selenium
 webdriver_manager
+boto3

@@ -8,13 +8,14 @@ from selenium.webdriver.common.by import By
 from flask import request
 from selenium import webdriver
 import pandas as pd
+from moveS3 import moveToS3
+import os
 import time
 import re
 import os
 
 
 tempPath = os.path.join(os.path.abspath(os.curdir),"temp_files") + (os.path.sep)  # Temp dir
-csvPath = os.path.join(os.path.abspath(os.curdir),"parquetFiles") + (os.path.sep)  # Final dir
 
 chrome_options = Options()
 chrome_options.add_experimental_option('prefs', {
@@ -65,19 +66,20 @@ def getcsv():
 
             if match:
                 date = match.group(1)
-                fileName = date[:4]+"-"+date[4:6]+"-"+date[6:8]  # 2024-08-30
+                fileName = date[:4] + "-" + date[4:6] + "-" + date[6:8] + ".parquet"  # 2024-08-30
                 
-                new_file_name = os.path.join(csvPath,  fileName + ".parquet") 
-                destination_file = os.path.join(csvPath, new_file_name)
+                fullPath = os.path.join(tempPath,  fileName) 
         
                 # Arquivo é salvo em diretório temporário > convetido > movido.
                 df = pd.read_csv(source_file, delimiter=';')
 
                 # Salva o DataFrame como um arquivo Parquet
-                df.to_parquet(destination_file, engine='pyarrow', index=True)
+                df.to_parquet(fullPath, engine='pyarrow', index=True)
+                
+                moveToS3(fullPath, fileName)
                 os.remove(source_file)
-   
-                result = f"Arquivo baixado com sucesso, convertido em parquet & movido - {destination_file}"
+                
+                result = f"Arquivo baixado com sucesso, convertido em parquet & movido - {fullPath}"
                 
             else:
                 os.remove(source_file)
