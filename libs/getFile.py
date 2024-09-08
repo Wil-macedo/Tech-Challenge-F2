@@ -71,7 +71,7 @@ def getcsv():
                 fullPath = os.path.join(tempPath,  fileName) 
         
                 # Arquivo é salvo em diretório temporário > convetido > movido.
-                df = pd.read_csv(source_file, delimiter=';')
+                df = pd.read_csv(source_file, delimiter=';', skiprows=1, header=0)
 
                 # Salva o DataFrame como um arquivo Parquet
                 df.to_parquet(fullPath, engine='pyarrow', index=True)
