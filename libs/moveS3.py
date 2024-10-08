@@ -4,8 +4,8 @@ import os
 # AS CREDENCIAIS NÃO ESTÃO SENDO UTILIZADAS, POIS JÁ FORAM
 #CONFIGURADAS UTILIZANDO O AWS CLI.
 
-#AWS_ACESS_KET_ID = os.environ.get('AWS_ACESS_KET_ID')
-#AWS_SECRET_ACESS_KEY = os.environ.get('AWS_SECRET_ACESS_KEY')
+AWS_ACESS_KET_ID = os.environ.get('AWS_ACESS_KET_ID')
+AWS_SECRET_ACESS_KEY = os.environ.get('AWS_SECRET_ACESS_KEY')
 AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 def moveToS3(fullPath:str, fileName:str):

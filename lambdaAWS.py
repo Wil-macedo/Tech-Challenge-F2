@@ -1,24 +1,26 @@
 import json
 import boto3
+from datetime import datetime
+
 
 def lambda_handler(event, context):
-    # Nome do job do Glue
-    gluJobName = 'ETL_V2'
-    
+
+    gluJobName = 'ETL-TC'
     
     glue_client = boto3.client('glue')
 
     try:
         # Inicia o job de ETL
         response = glue_client.start_job_run(JobName=gluJobName)
+        now = datetime.now().strftime('%d-%m-%Y')
         
         return {
             'statusCode': 200,
-            'body': json.dumps(f'Job iniciado com sucesso: {response["JobRunId"]}')
+            'body': json.dumps(f'Job iniciado com sucesso - {now}: {response["JobRunId"]}')
         }
     
-    except Exception as e:
+    except Exception as ex:
         return {
             'statusCode': 500,
-            'body': json.dumps(f'Erro ao iniciar o job: {str(e)}')
+            'body': json.dumps(f'Erro ao iniciar o job: {str(ex)}')
         }
