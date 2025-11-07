@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(wmic datafile:*)",
+      "Bash(pip install:*)",
+      "Bash(black:*)",
+      "Bash(isort:*)",
+      "Bash(python -m isort:*)",
+      "Bash(flake8:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,20 +1,21 @@
-
 from flask import Flask
-from libs.getFile import *
 
+from libs.getFile import getcsv
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def hello_world():
-    return 'Hello, World!'
+    return "Hello, World!"
 
-@app.route('/getData')
+
+@app.route("/getData")
 def getData():
     result = getcsv()
-    
+
     return result
 
-if __name__ == '__main__':  
-   app.run()  
+
+if __name__ == "__main__":
+    app.run()
